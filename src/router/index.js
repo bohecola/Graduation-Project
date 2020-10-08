@@ -3,11 +3,17 @@ import VueRouter from 'vue-router'
 
 const Home = () => import('views/home/Home')
 const Search = () => import('views/search/Search')
+const Person = () => import('views/search/Person')
+const Detail = () => import('views/detail/Detail')
 
-const Car = () => import('views/car/Car')
+const News = () => import('views/news/News')
+
+const Rank = () => import('views/rank/Rank')
 
 // 个人中心
 const Profile = () => import('views/profile/Profile')
+  const Info = () => import('views/profile/Info')
+    const EditeName = () => import('views/profile/infos/EditeName')
   const Feedback = () => import('views/profile/Feedback')
   const ContactUs = () => import('views/profile/ContactUs')
   const Setting = () => import('views/profile/Setting')
@@ -42,16 +48,46 @@ const routes = [
     path: '/search',
     component: Search
   },
-  // car
+  // person
   {
-    path: '/car',
-    component: Car
+    path: '/person',
+    component: Person
+  },
+  // detail
+  {
+    path: '/detail/:id',
+    component: Detail,
+    children: [
+
+    ]
+  },
+  // detail
+  {
+    path: '/news/:id',
+    component: News,
+  },
+  // rank
+  {
+    path: '/rank',
+    component: Rank
   },
   // profile
   {
     path: '/profile',
     component: Profile,
     children: [
+      // info
+      {
+        path: 'info',
+        component: Info,
+        children: [
+          //edite_name
+          {
+            path: 'edite_name',
+            component: EditeName
+          }
+        ]
+      },
       // feedback
       {
         path: 'feedback',

@@ -2,7 +2,7 @@
   <!-- 轮播图 -->
   <van-swipe :autoplay="3000">
     <van-swipe-item v-for="(image, index) in images" :key="index">
-      <img v-lazy="image" width="100%" height="160px"/>
+      <img v-lazy="image" width="100%" height="180px"/>
     </van-swipe-item>
   </van-swipe>  
 </template>
@@ -23,10 +23,10 @@
     data() {
       return{
         images: [
-          'https://img.yzcdn.cn/vant/apple-1.jpg',
-          'https://img.yzcdn.cn/vant/apple-1.jpg',
-          'https://img.yzcdn.cn/vant/apple-1.jpg',
-          'https://img.yzcdn.cn/vant/apple-1.jpg'
+          'http://localhost/uploads/images/avatars/202005/13/8_1589355278_LF7lc1xEEu.jpg',
+          'http://localhost/uploads/images/avatars/202005/13/8_1589356163_fXZR3lfAjf.jpg',
+          'http://localhost/uploads/images/avatars/202005/13/8_1589356537_5HrN0rBW1F.jpg',
+          'http://localhost/uploads/images/avatars/202005/13/8_1589356910_RA1nqDY4pY.jpg'
         ]
       }
     }

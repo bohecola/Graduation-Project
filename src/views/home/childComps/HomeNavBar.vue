@@ -2,23 +2,25 @@
   <!-- 导航栏 -->
   <van-row type="flex" class="home-nav">
     <!-- logo -->
-    <van-col span="4">
-      logo
+    <van-col span="4" class="logo">
+        <font-awesome-icon :icon ="['far', 'lemon']" size="lg"></font-awesome-icon>
+        <!-- Logo -->
     </van-col>
     <!-- search -->
     <van-col span="16">
       <form action="/">
-        <van-search  placeholder="请输入搜索关键词" v-model="value" @focus="onFocus" />
+        <van-search  placeholder="请输入相关公司名称" v-model="value" @focus="onFocus" />
       </form>
     </van-col>
     <!-- login / user-icon -->
-    <van-col v-if="isLogin" span="4">
+    <van-col v-if="this.$store.state.isLogin" span="4">
       <van-image
         round
-        width="2.5rem"
-        height="2.5rem"
+        width="2rem"
+        height="2rem"
         fit="cover"
-        src="https://img.yzcdn.cn/vant/cat.jpeg"
+        :src="this.$store.state.user.avatar"
+        @click="imageClick"
       />
     </van-col>
     <van-col v-else class="login-link" span="4" @click="loginClick">登录</van-col>
@@ -41,7 +43,6 @@
     data() {
       return {
         value: '',
-        isLogin: false
       }
     },
     components: {
@@ -53,6 +54,9 @@
       },
       onFocus() {
         this.$router.push('/search')
+      },
+      imageClick(){
+        this.$router.push('/profile/info')
       }
     }
   }
@@ -70,6 +74,11 @@
     z-index: 1;
     background-color: #fff;
     box-shadow: 0 1px 1px rgba(100, 100, 100, .1);
+  }
+
+  .logo {
+    /* color: #1989fa; */
+    color: skyblue;
   }
 
   /* 修改 van-search 默认padding */

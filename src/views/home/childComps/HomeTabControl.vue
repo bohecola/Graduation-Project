@@ -4,7 +4,7 @@
       <van-tab title="推荐">
         <slot name="recommend"></slot>
       </van-tab>
-      <van-tab title="我看过的">
+      <van-tab title="新闻">
         <slot name="visited"></slot>
       </van-tab>
   </van-tabs>

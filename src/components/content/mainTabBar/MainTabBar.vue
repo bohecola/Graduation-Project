@@ -1,14 +1,14 @@
 <template>
   <tab-bar>
     <tab-bar-item path="/home">
-      <font-awesome-icon slot="item-icon-active" :icon ="['fas', 'envelope-open']" size="lg"></font-awesome-icon>
-      <font-awesome-icon slot="item-icon" :icon ="['far', 'envelope-open']" size="lg"></font-awesome-icon>
+      <font-awesome-icon slot="item-icon-active" :icon ="['fas', 'lemon']" size="lg"></font-awesome-icon>
+      <font-awesome-icon slot="item-icon" :icon ="['far', 'lemon']" size="lg"></font-awesome-icon>
       <div slot="item-text">首页</div>
     </tab-bar-item>
-    <tab-bar-item path="/car">
+    <tab-bar-item path="/rank">
       <font-awesome-icon slot="item-icon-active" :icon ="['fas', 'clock']" size="lg"></font-awesome-icon>
       <font-awesome-icon slot="item-icon" :icon ="['far', 'clock']" size="lg"></font-awesome-icon>
-      <div slot="item-text">测试</div>
+      <div slot="item-text">排行</div>
     </tab-bar-item>
     <tab-bar-item path="/profile">
       <font-awesome-icon slot="item-icon-active" :icon ="['fas', 'user']" size="lg"></font-awesome-icon>

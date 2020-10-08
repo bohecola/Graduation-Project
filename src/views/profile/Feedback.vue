@@ -1,7 +1,7 @@
 <template>
   <div id="feedback">
     <back-nav-bar title="反馈与帮助"/>
-    反馈与帮助
+    帮助信息
   </div>
 </template>
 

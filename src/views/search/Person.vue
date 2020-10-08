@@ -1,10 +1,10 @@
 <template>
-  <div id="search">
-    <!-- Search -->
-    <form action="/" class="searh-bar">
+  <div id="person">
+    <!-- Person -->
+    <form action="/" class="person-bar">
       <van-search
         v-model.trim="keywords"
-        placeholder="请输入相关公司名称"
+        placeholder="请输入相关人物名称"
         show-action
         @search="onSearch"
         @cancel="onCancel"
@@ -24,12 +24,13 @@
     >
       <van-cell
         v-for="item in list"
-        :key="item.name"
-        :title="item.name"
+        :key="item.person"
+        :title="item.person"
         clickable
         @click="itemClick(item)"
       >
-      <van-tag v-if="item.person" plain type="primary">{{item.person}}</van-tag>
+      <van-tag v-if="item.province" plain type="primary">{{item.province}}</van-tag>
+      <van-tag v-if="item.city" plain type="success">{{item.city}}</van-tag>
       </van-cell>
     </van-list>
   </div>
@@ -40,11 +41,11 @@
   // 导入 Search 组件
   import { Search, Toast } from 'vant'
   // 导入 List 组件
-  import { List, Cell } from 'vant';
+  import { List, Cell, Tag } from 'vant';
 
-  import { getCompany, getCompanyNext } from 'network/company'
+  import { getPerson, getPersonNext } from 'network/company'
 
-  Vue.use(Search).use(List).use(Cell).use(Toast)
+  Vue.use(Search).use(List).use(Cell).use(Toast).use(Tag)
 
   export default {
     name: 'Search',
@@ -65,15 +66,11 @@
           this.page = 1
           this.isSearch = false
           this.list = []
-        } else if (this.keywords.length < 2 ) {
-          this.page = 1
-          this.isSearch = false
-          Toast('至少输入两个关键字')
         } else {
           // 重置加载状态
           this.finished = false
           // 发送网络请求
-          getCompany(this.keywords).then(res => {
+          getPerson(this.keywords).then(res => {
             // 清空上一次网络请求中存入 list 的数据
             this.list = []
             // 重置 page 为1
@@ -105,16 +102,11 @@
           this.page = 1
           this.isSearch = false
           this.list = []
-        } else if (this.keywords.length < 2) {
-          this.page = 1
-          this.isSearch = false
-          Toast('至少输入两个关键字')
-          this.list = []
         } else {
           // 重置加载状态
           this.finished = false
           // 输入框内容变化时继续发送网络请求
-          getCompany(this.keywords).then(res => {
+          getPersonNext(this.keywords).then(res => {
             // 清空上一次网络请求中存入 list 的数据
             this.list = []
             // 重置 page 为1
@@ -144,7 +136,7 @@
         // 如果下一页数据不为空，上滑继续加载
         if(this.next !== null) {
           this.page++
-          getCompanyNext(this.keywords, this.page).then(res => {
+          getPersonNext(this.keywords, this.page).then(res => {
             // 检查是否还有下一页数据
             this.next = res.links.next
             // 向数组中添加数据
@@ -182,7 +174,7 @@
 </script>
 
 <style scoped>
-  #search {
+  #person {
     position: relative;
     height: 100vh;
     /* 解决 search-bar fixed顶部后遮挡问题 */
@@ -197,7 +189,7 @@
     background-color: #fff;
   }
 
-  .searh-bar {
+  .person-bar {
     position: fixed;
     top: 0;
     right: 0;
@@ -209,8 +201,7 @@
   .van-search__action {
     color: #1989fa;
   }
-
-  .van-cell__title {
-    flex: 5;
+  .van-cell__value span {
+    margin-left: 10px;
   }
 </style>

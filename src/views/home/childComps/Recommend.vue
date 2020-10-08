@@ -10,9 +10,13 @@
     >
       <van-cell
         v-for="item in list"
-        :key="item"
-        :title="item + ' -'"
-      />
+        :key="item.name"
+        :title="item.name"
+        clickable
+        @click="itemClick(item)"
+      >
+      <van-tag plain color="#fb7281">推荐</van-tag>
+      </van-cell>
     </van-list>
   </van-pull-refresh>
 </template>
@@ -20,11 +24,12 @@
 <script>
   import Vue from 'vue';
   // 导入List列表组件
-  import { List, Cell } from 'vant';
-  import { PullRefresh } from 'vant';
+  import { List, Cell, Tag } from 'vant'
+  import { PullRefresh } from 'vant'
+  import { getRandomCompany } from 'network/company'
 
-  Vue.use(List).use(Cell)
-  Vue.use(PullRefresh);
+  Vue.use(List).use(Cell).use(Tag)
+  Vue.use(PullRefresh)
 
   export default {
     name: 'Recommend',
@@ -37,43 +42,64 @@
         finished: false
       }
     },
+    created() {
+      
+    },
     mounted() {
       // console.log(this.$refs.list)
-      console.log(this.$refs.list.check)
+      // console.log(this.$refs.list.check)
       // this.$refs.list.check() 
     },
     activated() {
-      console.log('activated')
+      // console.log('activated')
     },
     deactivated() {
-      console.log('deactivated')
+      // console.log('deactivated')
     },
     methods: {
       onRefresh() {
-        setTimeout(() => {
-          this.isLoading = false;
-          this.count++;
-        }, 1000);
+        // 重置加载状态
+        this.finished = false
+        getRandomCompany().then(res => {
+          // 清空上一次网络请求中存入 list 的数据
+          this.list = []
+          // 重新向数组 list 中添加本次网络请求的数据
+          res.forEach(element => {
+            this.list.push(element)
+          })
+          this.finished = true
+          this.isLoading = false
+          // console.log(res)
+        }).catch(res =>{
+          console.log(res)
+        })
       },
       onLoad() {
-        // 异步更新数据
-        setTimeout(() => {
-          for (let i = 0; i < 10; i++) {
-            this.list.push(this.list.length + 1);
-          }
-          // 加载状态结束
-          this.loading = false;
-
-          // 数据全部加载完成
-          if (this.list.length >= 40) {
-            this.finished = true;
-          }
-        }, 500);
-      }    
+        // 重置加载状态
+        this.finished = false
+        getRandomCompany().then(res => {
+          // 清空上一次网络请求中存入 list 的数据
+          this.list = []
+          // 向数组 list 中添加本次网络请求的数据
+          res.forEach(element => {
+            this.list.push(element)
+          })
+          this.finished = true
+          this.isLoading = false
+          // console.log(res)
+        }).catch(res =>{
+          console.log(res)
+        })
+      },
+      itemClick(item) {
+        this.$router.push('/detail/' + item.id)
+      } 
     }
   }
 </script>
 
 <style scoped>
-
+  .van-cell__title{
+    flex: 6;
+  }
 </style>
